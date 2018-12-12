@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.OrdersDao">
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.demo.entity.Orders">
+        INSERT INTO t_orders (number,status,create_date,cancel_date,end_date)
+        VALUES(#{number},#{status},#{createDate},#{cancelDate},#{endDate})
+    </insert>
+
+    <update id="update">
+        update
+        t_orders o
+        set
+        id = #{id}
+                <if test="number!= null and number != ''">
+                    ,o.number = #{number}
+                </if>
+                <if test="status!= null and status != ''">
+                    ,o.status = #{status}
+                </if>
+
+                <if test="createDate!= null">
+                    ,o.create_date = #{createDate}
+                </if>
+
+                <if test="endDate!= null">
+                    ,o.end_date = #{endDate}
+                </if>
+                <if test="cancelDate!= null">
+                    ,o.cancel_date = #{cancelDate}
+                </if>
+        where
+    o.id = #{id}
+    </update>
+
+    <delete id="del">
+        delete from
+    t_orders
+        where 1=1
+            <if test="id!= null">
+                and id = #{id}
+            </if>
+
+            <if test="number!= null and number != ''">
+                and number = #{number}
+            </if>
+
+            <if test="status!= null and status != ''">
+                and status = #{status}
+            </if>
+
+            <if test="createDate!= null and createDate != ''">
+                and create_date = #{createDate}
+            </if>
+
+            <if test="endDate!= null and endDate != ''">
+                and end_date = #{endDate}
+            </if>
+
+            <if test="cancelDate!= null and cancelDate != ''">
+                and cancel_date = #{cancelDate}
+            </if>
+
+    </delete>
+
+    <select id="findList" parameterType="com.example.demo.entity.Orders"  resultType="com.example.demo.entity.Orders">
+        select
+        o.id,
+        o.number,
+        o.status,
+        o.create_date,
+        o.end_date,
+        o.cancel_date
+        from t_orders o
+        where 1=1
+            <if test="id!= null">
+                and o.id = #{id}
+            </if>
+
+            <if test="number!= null and number != ''">
+                and o.number = #{number}
+            </if>
+
+
+            <if test="status!= null and status != ''">
+                and o.status = #{status}
+            </if>
+
+
+            <if test="createDate!= null and createDate != ''">
+                and o.create_date = #{createDate}
+            </if>
+
+            <if test="endDate!= null and endDate != ''">
+                and o.end_date = #{endDate}
+            </if>
+
+
+            <if test="cancelDate!= null and cancelDate != ''">
+                and o.cancel_date = #{cancelDate}
+            </if>
+
+
+
+    </select>
+
+    <select id="findById" parameterType="com.example.demo.entity.Orders"  resultType="com.example.demo.entity.Orders">
+        select
+        o.id,
+        o.number,
+        o.status,
+        o.create_date,
+        o.end_date,
+        o.cancel_date
+        from t_orders o
+        where o.id=#{id}
+
+    </select>
+
+</mapper>	
